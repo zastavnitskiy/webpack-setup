@@ -7,5 +7,8 @@
     "chunk-manifest-webpack-plugin": "^1.0.0",
     "webpack": "^2.3.2",
     "webpack-md5-hash": "^0.0.5"
+  },
+  "scripts": {
+    "build": "webpack"
   }
 }
