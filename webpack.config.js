@@ -20,6 +20,7 @@ const entry = [
 module.exports = {
   entry,
   output: {
+    publicPath: "https://q.bstatic.com/",
     path: path.resolve(__dirname, "build"),
     filename: "[name].[chunkhash].js",
     chunkFilename: "chunk-[name].[chunkhash].js"
@@ -42,7 +43,7 @@ module.exports = {
       name: "vendor",
       minChunks: function(module, count) {
         //if module is
-        return module.resource && (/vendor/).test(module.resource) && count >= 3
+        return module.resource && /vendor/.test(module.resource) && count >= 3;
       }
     }),
 
