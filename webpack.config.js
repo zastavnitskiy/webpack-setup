@@ -38,12 +38,11 @@ module.exports = {
       manifestVariable: "webpackManifest"
     }),
 
-    //move vendor chunks that are used in >3 entries/chunks into vendor chunk
     new webpack.optimize.CommonsChunkPlugin({
       name: "vendor",
       minChunks: function(module, count) {
         //if module is
-        return module.resource && /vendor/.test(module.resource) && count >= 3;
+        return module.resource && /vendor/.test(module.resource);
       }
     }),
 
