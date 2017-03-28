@@ -1,0 +1,1 @@
+exports = 'I\'m jquery!';
