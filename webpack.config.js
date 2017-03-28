@@ -23,7 +23,7 @@ module.exports = {
     publicPath: "https://q.bstatic.com/",
     path: path.resolve(__dirname, "build"),
     filename: "[name].[chunkhash].js",
-    chunkFilename: "chunk-[name].[chunkhash].js"
+    chunkFilename: "chunk-[id].[chunkhash].js"
   },
   plugins: [
     // This pluging makes hashing consistent across builds, and
@@ -42,7 +42,8 @@ module.exports = {
       name: "vendor",
       minChunks: function(module, count) {
         //if module is
-        return module.resource && /vendor/.test(module.resource);
+        console.log(module.resource, count);
+        return module.resource && /vendor/.test(module.resource) && count >= 3;
       }
     }),
 
@@ -50,6 +51,15 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: "async",
       async: true
-    })
+    }),
+
+    function() {
+      this.plugin("done", function(stats) {
+
+        require("fs").writeFileSync(
+          path.join(__dirname, "build", "entrypoints.json"),
+          JSON.stringify(stats.toJson().entrypoints, null, 2));
+      });
+    }
   ]
 };
